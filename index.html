@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>슈의 라면가게</title>
+    <script src="https://unpkg.com/@ruffle-rs/ruffle"></script>
+    <script>
+        window.RufflePlayer = window.RufflePlayer || {};
+        window.RufflePlayer.config = {
+            autoplay: "on",
+            unmuteOverlay: "hidden",
+            contextMenu: "rightClickOnly",
+            letterbox: "on"
+        };
+    </script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #1a1a2e;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        h1 {
+            color: #f5c518;
+            margin-bottom: 20px;
+            font-size: 2rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        #game-container {
+            background-color: #000;
+            border: 3px solid #f5c518;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 0 30px rgba(245, 197, 24, 0.3);
+        }
+
+        #player {
+            display: block;
+            width: 800px;
+            height: 600px;
+        }
+
+        .info {
+            color: #888;
+            margin-top: 15px;
+            font-size: 0.85rem;
+        }
+
+        .info a {
+            color: #aaa;
+            text-decoration: none;
+        }
+
+        .info a:hover {
+            color: #f5c518;
+        }
+    </style>
+</head>
+<body>
+    <h1>슈의 라면가게</h1>
+    <div id="game-container">
+        <div id="player"></div>
+    </div>
+    <p class="info">Powered by <a href="https://ruffle.rs" target="_blank" rel="noopener">Ruffle</a> Flash Emulator</p>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const ruffle = window.RufflePlayer.newest();
+            const player = ruffle.createPlayer();
+            const container = document.getElementById("player");
+            container.appendChild(player);
+            player.style.width = "800px";
+            player.style.height = "600px";
+            player.load("s4_ramyun.swf");
+        });
+    </script>
+</body>
+</html>
