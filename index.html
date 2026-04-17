@@ -21,35 +21,36 @@
             box-sizing: border-box;
         }
 
-        body {
+        html, body {
+            width: 100%;
+            height: 100vh;
+            overflow: hidden;
             background-color: #1a1a2e;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            padding: 30px 20px;
-            min-height: 100vh;
-        }
-
-        h1 {
-            color: #f5c518;
-            text-align: center;
-            margin-bottom: 25px;
-            font-size: 2rem;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
         }
 
         .layout {
             display: flex;
-            gap: 25px;
-            justify-content: center;
-            align-items: flex-start;
-            flex-wrap: wrap;
-            max-width: 1400px;
-            margin: 0 auto;
+            width: 100%;
+            height: 100vh;
+            gap: 20px;
+            padding: 20px;
         }
 
+        /* ===== 왼쪽: 게임 영역 ===== */
         #game-section {
+            flex: 0 0 auto;
             display: flex;
             flex-direction: column;
             align-items: center;
+            justify-content: center;
+        }
+
+        .game-title {
+            color: #f5c518;
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
         }
 
         #game-container {
@@ -62,15 +63,14 @@
 
         #player {
             display: block;
-            width: 800px;
-            height: 600px;
+            width: 900px;
+            height: 675px;
         }
 
         .info {
             color: #888;
-            margin-top: 15px;
+            margin-top: 12px;
             font-size: 0.85rem;
-            text-align: center;
         }
 
         .info a {
@@ -82,93 +82,186 @@
             color: #f5c518;
         }
 
-        /* 활동지 스타일 */
-        .worksheet {
+        /* ===== 오른쪽: 활동지 영역 ===== */
+        #worksheet-section {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            min-width: 0;
+        }
+
+        .worksheet-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+            color: #f5c518;
+        }
+
+        .worksheet-header h2 {
+            font-size: 1.4rem;
+        }
+
+        .slide-indicator {
+            display: flex;
+            gap: 8px;
+        }
+
+        .indicator-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: rgba(245, 197, 24, 0.3);
+            transition: background-color 0.2s;
+        }
+
+        .indicator-dot.active {
+            background-color: #f5c518;
+        }
+
+        .slide-container {
+            position: relative;
+            flex: 1;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            min-height: 0;
+        }
+
+        .arrow-btn {
+            flex: 0 0 auto;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: #f5c518;
+            border: none;
+            color: #1a1a2e;
+            font-size: 1.5rem;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(245, 197, 24, 0.4);
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .arrow-btn:hover:not(:disabled) {
+            background-color: #ffd93d;
+            transform: scale(1.1);
+        }
+
+        .arrow-btn:disabled {
+            background-color: #555;
+            color: #888;
+            cursor: not-allowed;
+            box-shadow: none;
+        }
+
+        .slides {
+            flex: 1;
+            height: 100%;
+            position: relative;
+            overflow: hidden;
+            border-radius: 10px;
+        }
+
+        .slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
             background-color: #fdfcf7;
             color: #222;
-            width: 420px;
-            padding: 24px 22px;
-            border-radius: 8px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
-            font-size: 0.9rem;
-            line-height: 1.5;
+            padding: 25px 30px;
+            overflow-y: auto;
+            opacity: 0;
+            transform: translateX(50px);
+            transition: opacity 0.3s, transform 0.3s;
+            pointer-events: none;
         }
 
-        .worksheet h2 {
-            color: #c8102e;
-            font-size: 1.15rem;
+        .slide.active {
+            opacity: 1;
+            transform: translateX(0);
+            pointer-events: auto;
+        }
+
+        .stage-label {
+            display: inline-block;
+            background-color: #c8102e;
+            color: #fff;
+            padding: 6px 16px;
+            border-radius: 4px;
+            font-weight: 600;
+            font-size: 1rem;
             margin-bottom: 16px;
-            text-align: center;
-            border-bottom: 2px solid #c8102e;
-            padding-bottom: 8px;
         }
 
-        .worksheet .question {
+        .sub-stage-label {
+            display: inline-block;
+            background-color: #333;
+            color: #f5c518;
+            padding: 4px 12px;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            margin: 14px 0 8px;
+        }
+
+        .question {
             font-weight: 600;
             margin: 14px 0 8px;
             color: #333;
+            font-size: 1rem;
         }
 
-        .worksheet .stage-label {
-            background-color: #333;
-            color: #f5c518;
-            padding: 4px 10px;
-            border-radius: 4px;
-            font-size: 0.85rem;
-            display: inline-block;
-            margin: 18px 0 4px;
-        }
-
-        .worksheet table {
+        .slide table {
             width: 100%;
             border-collapse: collapse;
-            margin-bottom: 6px;
+            margin-bottom: 10px;
         }
 
-        .worksheet th, .worksheet td {
+        .slide th, .slide td {
             border: 1.5px solid #444;
-            padding: 6px 8px;
+            padding: 8px 10px;
             vertical-align: top;
         }
 
-        .worksheet th {
+        .slide th {
             background-color: #efe9d8;
             font-weight: 600;
             text-align: center;
-            font-size: 0.85rem;
         }
 
-        .worksheet textarea {
+        .slide textarea {
             width: 100%;
             border: none;
             resize: none;
             font-family: inherit;
-            font-size: 0.88rem;
+            font-size: 0.95rem;
             background-color: transparent;
             outline: none;
-            min-height: 60px;
-        }
-
-        .worksheet td textarea {
-            min-height: 70px;
+            min-height: 80px;
         }
 
         .elements-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 4px;
-            margin-top: 6px;
+            gap: 6px;
+            margin-top: 8px;
         }
 
         .element-box {
             border: 1.5px solid #444;
-            padding: 8px 4px;
+            padding: 12px 6px;
             text-align: center;
-            font-size: 0.82rem;
+            font-size: 0.9rem;
             cursor: pointer;
             user-select: none;
             background-color: #fff;
             transition: all 0.15s;
+            border-radius: 4px;
         }
 
         .element-box:hover {
@@ -182,123 +275,201 @@
         }
 
         .hint-text {
-            font-size: 0.78rem;
-            color: #888;
+            font-size: 0.82rem;
+            color: #777;
             font-style: italic;
             margin-top: 4px;
         }
 
         .footer-note {
-            margin-top: 20px;
-            padding: 10px;
+            margin-top: 18px;
+            padding: 12px;
             background-color: #fff4c4;
             border-left: 4px solid #f5c518;
-            font-size: 0.85rem;
+            font-size: 0.9rem;
             color: #333;
         }
 
-        @media (max-width: 1300px) {
-            .layout {
-                flex-direction: column;
-                align-items: center;
-            }
+        /* 스크롤바 */
+        .slide::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        .slide::-webkit-scrollbar-track {
+            background: #f0ead6;
+        }
+
+        .slide::-webkit-scrollbar-thumb {
+            background: #c8102e;
+            border-radius: 5px;
         }
     </style>
 </head>
 <body>
-    <h1>슈의 라면가게</h1>
     <div class="layout">
+        <!-- 왼쪽: 게임 -->
         <div id="game-section">
+            <div class="game-title">슈의 라면가게</div>
             <div id="game-container">
                 <div id="player"></div>
             </div>
             <p class="info">Powered by <a href="https://ruffle.rs" target="_blank" rel="noopener">Ruffle</a> Flash Emulator</p>
         </div>
 
-        <div class="worksheet">
-            <h2>문제 해결 활동지</h2>
-
-            <div class="question">Q. 문제의 초기 상태와 목표 상태는?</div>
-            <table>
-                <thead>
-                    <tr>
-                        <th style="width:50%">초기 상태</th>
-                        <th style="width:50%">목표 상태</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td><textarea placeholder="예: 재료가 준비되지 않음..."></textarea></td>
-                        <td><textarea placeholder="예: 손님에게 라면 제공..."></textarea></td>
-                    </tr>
-                </tbody>
-            </table>
-
-            <div class="question">Q. 문제의 요구 사항과 제약 조건은?</div>
-            <table>
-                <thead>
-                    <tr>
-                        <th style="width:50%">요구 사항</th>
-                        <th style="width:50%">제약 조건</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td><textarea placeholder="해야 할 것..."></textarea></td>
-                        <td><textarea placeholder="지켜야 할 규칙..."></textarea></td>
-                    </tr>
-                </tbody>
-            </table>
-
-            <div class="stage-label">◆ 문제 분해 단계</div>
-            <div class="question">Q. 문제 상황(라면 끓이기)을 해결하기 쉽게 작은 부분으로 나누면?</div>
-            <table>
-                <thead>
-                    <tr>
-                        <th>라면 끓이기 (만점 기준)</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td><textarea style="min-height:120px;" placeholder="1. &#10;2. &#10;3. &#10;4. "></textarea></td>
-                    </tr>
-                </tbody>
-            </table>
-
-            <div class="stage-label">◆ 핵심요소 추출 단계</div>
-            <div class="question">Q. 아래 요소들 중 문제 해결과 관련 없는 불필요한 요소를 제거하면?</div>
-            <div class="hint-text">(클릭하면 제거 표시됩니다)</div>
-            <div class="elements-grid">
-                <div class="element-box" onclick="this.classList.toggle('removed')">슈의 복장</div>
-                <div class="element-box" onclick="this.classList.toggle('removed')">양은 냄비 색깔</div>
-                <div class="element-box" onclick="this.classList.toggle('removed')">배경 음악</div>
-                <div class="element-box" onclick="this.classList.toggle('removed')">양은 냄비 개수</div>
-                <div class="element-box" onclick="this.classList.toggle('removed')">끓이는 시간</div>
-                <div class="element-box" onclick="this.classList.toggle('removed')">재료 투입 여부</div>
-                <div class="element-box" onclick="this.classList.toggle('removed')">남은 시간</div>
-                <div class="element-box" onclick="this.classList.toggle('removed')">현재까지 번 돈</div>
-                <div class="element-box" onclick="this.classList.toggle('removed')">남은 냄비 개수</div>
-                <div class="element-box" onclick="this.classList.toggle('removed')">재료 투입 순서</div>
-                <div class="element-box" onclick="this.classList.toggle('removed')">마우스 클릭 좌표</div>
-                <div class="element-box" onclick="this.classList.toggle('removed')">물의 온도</div>
+        <!-- 오른쪽: 활동지 -->
+        <div id="worksheet-section">
+            <div class="worksheet-header">
+                <h2>📝 문제 해결 활동지</h2>
+                <div class="slide-indicator">
+                    <div class="indicator-dot active" data-idx="0"></div>
+                    <div class="indicator-dot" data-idx="1"></div>
+                    <div class="indicator-dot" data-idx="2"></div>
+                </div>
             </div>
 
-            <div class="footer-note">
-                활동지를 모두 채우고 <strong>8000원</strong>을 넘기면 소정의 상품이 있습니다 ^^+ 화이팅!
+            <div class="slide-container">
+                <button class="arrow-btn" id="prev-btn" disabled>◀</button>
+
+                <div class="slides">
+                    <!-- Slide 1: 문제 분석 단계 -->
+                    <div class="slide active" data-idx="0">
+                        <div class="stage-label">&lt;문제 분석 단계&gt;</div>
+
+                        <div class="question">Q. 문제의 초기 상태와 목표 상태는?</div>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th style="width:50%">초기 상태</th>
+                                    <th style="width:50%">목표 상태</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><textarea placeholder="예: 재료가 준비되지 않음..."></textarea></td>
+                                    <td><textarea placeholder="예: 손님에게 라면 제공..."></textarea></td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <div class="question">Q. 문제의 요구 사항과 제약 조건은?</div>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th style="width:50%">요구 사항</th>
+                                    <th style="width:50%">제약 조건</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><textarea placeholder="해야 할 것..."></textarea></td>
+                                    <td><textarea placeholder="지켜야 할 규칙..."></textarea></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Slide 2: 추상화 - 문제 분해 -->
+                    <div class="slide" data-idx="1">
+                        <div class="stage-label">&lt;추상화&gt;</div>
+                        <div class="sub-stage-label">◆ 문제 분해 단계</div>
+
+                        <div class="question">Q. 문제 상황(라면 끓이기)을 해결하기 쉽게 작은 부분으로 나누면?</div>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>라면 끓이기 (만점 기준)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><textarea style="min-height:360px;" placeholder="1. &#10;2. &#10;3. &#10;4. &#10;5. &#10;6. "></textarea></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Slide 3: 추상화 - 핵심요소 추출 -->
+                    <div class="slide" data-idx="2">
+                        <div class="stage-label">&lt;추상화&gt;</div>
+                        <div class="sub-stage-label">◆ 핵심요소 추출 단계</div>
+
+                        <div class="question">Q. 아래 요소들 중 문제 해결과 관련 없는 불필요한 요소를 제거하면?</div>
+                        <div class="hint-text">(클릭하면 제거 표시됩니다 / 다시 클릭하면 복원)</div>
+                        <div class="elements-grid">
+                            <div class="element-box" onclick="this.classList.toggle('removed')">슈의 복장</div>
+                            <div class="element-box" onclick="this.classList.toggle('removed')">양은 냄비 색깔</div>
+                            <div class="element-box" onclick="this.classList.toggle('removed')">배경 음악</div>
+                            <div class="element-box" onclick="this.classList.toggle('removed')">양은 냄비 개수</div>
+                            <div class="element-box" onclick="this.classList.toggle('removed')">끓이는 시간</div>
+                            <div class="element-box" onclick="this.classList.toggle('removed')">재료 투입 여부</div>
+                            <div class="element-box" onclick="this.classList.toggle('removed')">남은 시간</div>
+                            <div class="element-box" onclick="this.classList.toggle('removed')">현재까지 번 돈</div>
+                            <div class="element-box" onclick="this.classList.toggle('removed')">남은 냄비 개수</div>
+                            <div class="element-box" onclick="this.classList.toggle('removed')">재료 투입 순서</div>
+                            <div class="element-box" onclick="this.classList.toggle('removed')">마우스 클릭 좌표</div>
+                            <div class="element-box" onclick="this.classList.toggle('removed')">물의 온도</div>
+                        </div>
+
+                        <div class="footer-note">
+                            🎉 활동지를 모두 채우고 <strong>8000원</strong>을 넘기면 소정의 상품이 있습니다 ^^+ 화이팅!
+                        </div>
+                    </div>
+                </div>
+
+                <button class="arrow-btn" id="next-btn">▶</button>
             </div>
         </div>
     </div>
 
     <script>
+        // Ruffle Flash 플레이어 로드
         document.addEventListener("DOMContentLoaded", () => {
             const ruffle = window.RufflePlayer.newest();
             const player = ruffle.createPlayer();
             const container = document.getElementById("player");
             container.appendChild(player);
-            player.style.width = "800px";
-            player.style.height = "600px";
+            player.style.width = "900px";
+            player.style.height = "675px";
             player.load("s4_ramyun.swf");
         });
+
+        // 슬라이드 네비게이션
+        (function() {
+            const slides = document.querySelectorAll('.slide');
+            const dots = document.querySelectorAll('.indicator-dot');
+            const prevBtn = document.getElementById('prev-btn');
+            const nextBtn = document.getElementById('next-btn');
+            let currentIdx = 0;
+            const total = slides.length;
+
+            function updateSlide(idx) {
+                slides.forEach((s, i) => s.classList.toggle('active', i === idx));
+                dots.forEach((d, i) => d.classList.toggle('active', i === idx));
+                prevBtn.disabled = idx === 0;
+                nextBtn.disabled = idx === total - 1;
+                currentIdx = idx;
+            }
+
+            prevBtn.addEventListener('click', () => {
+                if (currentIdx > 0) updateSlide(currentIdx - 1);
+            });
+
+            nextBtn.addEventListener('click', () => {
+                if (currentIdx < total - 1) updateSlide(currentIdx + 1);
+            });
+
+            dots.forEach((dot, i) => {
+                dot.style.cursor = 'pointer';
+                dot.addEventListener('click', () => updateSlide(i));
+            });
+
+            // 키보드 좌우 화살표 지원
+            document.addEventListener('keydown', (e) => {
+                if (e.target.tagName === 'TEXTAREA' || e.target.tagName === 'INPUT') return;
+                if (e.key === 'ArrowLeft' && currentIdx > 0) updateSlide(currentIdx - 1);
+                if (e.key === 'ArrowRight' && currentIdx < total - 1) updateSlide(currentIdx + 1);
+            });
+        })();
     </script>
 </body>
 </html>
