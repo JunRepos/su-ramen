@@ -23,19 +23,33 @@
 
         body {
             background-color: #1a1a2e;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            min-height: 100vh;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            padding: 30px 20px;
+            min-height: 100vh;
         }
 
         h1 {
             color: #f5c518;
-            margin-bottom: 20px;
+            text-align: center;
+            margin-bottom: 25px;
             font-size: 2rem;
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .layout {
+            display: flex;
+            gap: 25px;
+            justify-content: center;
+            align-items: flex-start;
+            flex-wrap: wrap;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        #game-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
         #game-container {
@@ -56,6 +70,7 @@
             color: #888;
             margin-top: 15px;
             font-size: 0.85rem;
+            text-align: center;
         }
 
         .info a {
@@ -66,14 +81,213 @@
         .info a:hover {
             color: #f5c518;
         }
+
+        /* 활동지 스타일 */
+        .worksheet {
+            background-color: #fdfcf7;
+            color: #222;
+            width: 420px;
+            padding: 24px 22px;
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        .worksheet h2 {
+            color: #c8102e;
+            font-size: 1.15rem;
+            margin-bottom: 16px;
+            text-align: center;
+            border-bottom: 2px solid #c8102e;
+            padding-bottom: 8px;
+        }
+
+        .worksheet .question {
+            font-weight: 600;
+            margin: 14px 0 8px;
+            color: #333;
+        }
+
+        .worksheet .stage-label {
+            background-color: #333;
+            color: #f5c518;
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            display: inline-block;
+            margin: 18px 0 4px;
+        }
+
+        .worksheet table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 6px;
+        }
+
+        .worksheet th, .worksheet td {
+            border: 1.5px solid #444;
+            padding: 6px 8px;
+            vertical-align: top;
+        }
+
+        .worksheet th {
+            background-color: #efe9d8;
+            font-weight: 600;
+            text-align: center;
+            font-size: 0.85rem;
+        }
+
+        .worksheet textarea {
+            width: 100%;
+            border: none;
+            resize: none;
+            font-family: inherit;
+            font-size: 0.88rem;
+            background-color: transparent;
+            outline: none;
+            min-height: 60px;
+        }
+
+        .worksheet td textarea {
+            min-height: 70px;
+        }
+
+        .elements-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 4px;
+            margin-top: 6px;
+        }
+
+        .element-box {
+            border: 1.5px solid #444;
+            padding: 8px 4px;
+            text-align: center;
+            font-size: 0.82rem;
+            cursor: pointer;
+            user-select: none;
+            background-color: #fff;
+            transition: all 0.15s;
+        }
+
+        .element-box:hover {
+            background-color: #fff7d6;
+        }
+
+        .element-box.removed {
+            background-color: #e0e0e0;
+            color: #888;
+            text-decoration: line-through;
+        }
+
+        .hint-text {
+            font-size: 0.78rem;
+            color: #888;
+            font-style: italic;
+            margin-top: 4px;
+        }
+
+        .footer-note {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #fff4c4;
+            border-left: 4px solid #f5c518;
+            font-size: 0.85rem;
+            color: #333;
+        }
+
+        @media (max-width: 1300px) {
+            .layout {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
     </style>
 </head>
 <body>
     <h1>슈의 라면가게</h1>
-    <div id="game-container">
-        <div id="player"></div>
+    <div class="layout">
+        <div id="game-section">
+            <div id="game-container">
+                <div id="player"></div>
+            </div>
+            <p class="info">Powered by <a href="https://ruffle.rs" target="_blank" rel="noopener">Ruffle</a> Flash Emulator</p>
+        </div>
+
+        <div class="worksheet">
+            <h2>문제 해결 활동지</h2>
+
+            <div class="question">Q. 문제의 초기 상태와 목표 상태는?</div>
+            <table>
+                <thead>
+                    <tr>
+                        <th style="width:50%">초기 상태</th>
+                        <th style="width:50%">목표 상태</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><textarea placeholder="예: 재료가 준비되지 않음..."></textarea></td>
+                        <td><textarea placeholder="예: 손님에게 라면 제공..."></textarea></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="question">Q. 문제의 요구 사항과 제약 조건은?</div>
+            <table>
+                <thead>
+                    <tr>
+                        <th style="width:50%">요구 사항</th>
+                        <th style="width:50%">제약 조건</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><textarea placeholder="해야 할 것..."></textarea></td>
+                        <td><textarea placeholder="지켜야 할 규칙..."></textarea></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="stage-label">◆ 문제 분해 단계</div>
+            <div class="question">Q. 문제 상황(라면 끓이기)을 해결하기 쉽게 작은 부분으로 나누면?</div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>라면 끓이기 (만점 기준)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><textarea style="min-height:120px;" placeholder="1. &#10;2. &#10;3. &#10;4. "></textarea></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="stage-label">◆ 핵심요소 추출 단계</div>
+            <div class="question">Q. 아래 요소들 중 문제 해결과 관련 없는 불필요한 요소를 제거하면?</div>
+            <div class="hint-text">(클릭하면 제거 표시됩니다)</div>
+            <div class="elements-grid">
+                <div class="element-box" onclick="this.classList.toggle('removed')">슈의 복장</div>
+                <div class="element-box" onclick="this.classList.toggle('removed')">양은 냄비 색깔</div>
+                <div class="element-box" onclick="this.classList.toggle('removed')">배경 음악</div>
+                <div class="element-box" onclick="this.classList.toggle('removed')">양은 냄비 개수</div>
+                <div class="element-box" onclick="this.classList.toggle('removed')">끓이는 시간</div>
+                <div class="element-box" onclick="this.classList.toggle('removed')">재료 투입 여부</div>
+                <div class="element-box" onclick="this.classList.toggle('removed')">남은 시간</div>
+                <div class="element-box" onclick="this.classList.toggle('removed')">현재까지 번 돈</div>
+                <div class="element-box" onclick="this.classList.toggle('removed')">남은 냄비 개수</div>
+                <div class="element-box" onclick="this.classList.toggle('removed')">재료 투입 순서</div>
+                <div class="element-box" onclick="this.classList.toggle('removed')">마우스 클릭 좌표</div>
+                <div class="element-box" onclick="this.classList.toggle('removed')">물의 온도</div>
+            </div>
+
+            <div class="footer-note">
+                활동지를 모두 채우고 <strong>8000원</strong>을 넘기면 소정의 상품이 있습니다 ^^+ 화이팅!
+            </div>
+        </div>
     </div>
-    <p class="info">Powered by <a href="https://ruffle.rs" target="_blank" rel="noopener">Ruffle</a> Flash Emulator</p>
 
     <script>
         document.addEventListener("DOMContentLoaded", () => {
